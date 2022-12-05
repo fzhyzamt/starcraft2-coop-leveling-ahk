@@ -1,4 +1,5 @@
-﻿#SingleInstance force
+﻿#include utils.ahk
+#SingleInstance force
 FileInstall, Mutator_polarity.png, Mutator_polarity.png
 
 ^+r::
@@ -7,8 +8,8 @@ return
 
 MainLoop()
 {
-;SC_HWND := WinExist("星际争霸2")
-SC_HWND := WinExist("ahk_exe Taskmgr.exe")
+SC_HWND := WinExist("ahk_exe SC2_x64.exe")
+;SC_HWND := WinExist("ahk_exe Taskmgr.exe")
 if not SC_HWND
 {
     MsgBox % "星际2未运行"
@@ -19,57 +20,107 @@ if not SC_HWND
 Loop {
     ; TODO 判断是否要激活威望、切换指挥官
     StartGame()
+
+    ; 等待进入游戏
     WaitEnteringGame()
+
+    ; 使用面板
     OnEnteringGame()
+
+    ; 判断极性
     if HasPolarity() {
         F10Q()
     } else {
-        ; TODO 是否可以直接F10Q？
         OnGameEnding()
     }
 }
 }
 
+HallPixel() {
+    ;大厅里"合作任务"那几个字
+    return [{x:225,y:301},{x:237,y:337},{x:285,y:319},{x:285,y:333},{x:341,y:322}]
+}
+
+TargetPixel() {
+    ; 左上 中上 左下 中下 右下
+    return [{x:142,y:1763},{x:342,y:1774},{x:140,y:1945},{x:310,y:2002},{x:464,y:1934}]
+}
+
+SuccessPagePixel() {
+    ; 游戏内胜利那两个字
+    return [{x:1806, y:473},{x:1878,y:465},{x:1878,y:503},{x:1878,y:543},{x:1964,y:475}]
+}
+
+SuccessPage2Pixel() {
+    ; 退出到大厅的胜利那两个字
+    return [{x:221, y:391},{x:327,y:373},{x:269,y:385},{x:269,y:437},{x:405,y:429}]
+}
+
 StartGame()
 {
 ;WinWaitActive
-; 检查队伍是否正确，防止缺人的情况
-; 检查队伍二号位是否有人即可
-; 在大厅时，点击开始
-; 检查当前是否已经进入游戏中
-; 待选择标志物
-; 点击开始按钮
+if CheckMemberInvalid() {
+    MsgBox 队伍人数不正确
+    ExitApp
+}
+Click 500 1900
+Sleep 500
+MouseMove, 0, 0
+}
+
+; 检查队伍是否有人,防止匹到野队去
+CheckMemberInvalid() {
+    PixelGetColor, BGRColor, 3585, 35
+    if not IsLikeColor(BGRColor, 0x0F141B, 10)
+        return 0
+
+    PixelGetColor, BGRColor2, 3555, 89
+    if not IsLikeColor(BGRColor2, 0x0E1925, 10)
+        return 0
+
+    PixelGetColor, BGRColor3, 3578, 55
+    if not IsLikeColor(BGRColor3, 0x6192B8, 10)
+        return 0
+
+    return 1
+}
+
+; 等待直到进入大厅
+WaitInHall() {
+    WaitToColorAllMatch(HallPixel(), 0xFFFFFF)
 }
 
 ; 等待倒计时、读条等，直到进入游戏UI加载完毕
 WaitEnteringGame()
 {
+    WaitToColorAllMatch(TargetPixel(), 0x00FF00)
 }
 
 ; 等待结束按钮并点退出
 OnGameEnding()
 {
+    WaitToColorAllMatch(SuccessPagePixel(), 0xEBFCDB)
+    Send s
 }
 
 ; 检查是否有极性不定因子
 HasPolarity()
 {
 ; https://www.autohotkey.com/docs/misc/DPIScaling.htm
-ImageSearch, FoundX, FoundY, 0, 0, 1920, 1080, *10 Mutator_polarity.png
-;MsgBox % FoundX
+ImageSearch, FoundX, FoundY, A_ScreenWidth * 0.9, A_ScreenHeight * 0.2, A_ScreenWidth, A_ScreenHeight * 0.8, *10 Mutator_polarity.png
 if (ErrorLevel = 2)
     MsgBox Could not conduct the search.
 else if (ErrorLevel = 1)
-    MsgBox Icon could not be found on the screen.
+    return 0
 else
-    MsgBox The icon was found at %FoundX%x%FoundY%.
-return 0
+    return 1
 }
+
 
 F10Q()
 {
-    Send F10
-    Sleep 100
+    Send {F10}
+    Sleep 200
     Send q
 }
 
@@ -77,9 +128,6 @@ F10Q()
 ; 按ESC时停止脚本
 Esc::
 {
-;    Gui, Test:New
-;    InputBox, OutputVar
     MsgBox % "终止脚本"
     ExitApp
-;    DllCall("LockWorkStation")
 }

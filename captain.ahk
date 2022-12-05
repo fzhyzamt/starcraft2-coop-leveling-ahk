@@ -2,6 +2,24 @@
 
 OnEnteringGame()
 {
-;; 使用面板
-    MsgBox % "124124142"
+    CallHyperions()
+}
+
+CallHyperions()
+{
+    for k,v in TargetPixel() {
+        CallHyperion(v.x, v.y)
+    }
+}
+CallHyperion(mx, my)
+{
+    i := 5
+    while i > 0
+    {
+        mx++
+        Send ^z
+        Click %mx% %my%
+        Sleep 100
+        i--
+    }
 }
