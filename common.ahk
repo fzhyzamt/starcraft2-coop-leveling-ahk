@@ -1,4 +1,5 @@
 ﻿#SingleInstance force
+FileInstall, Mutator_polarity.png, Mutator_polarity.png
 
 ^+r::
 MainLoop()
@@ -54,7 +55,7 @@ OnGameEnding()
 HasPolarity()
 {
 ; https://www.autohotkey.com/docs/misc/DPIScaling.htm
-ImageSearch, FoundX, FoundY, 0, 0, 1920, 1080, *10 ss.png
+ImageSearch, FoundX, FoundY, 0, 0, 1920, 1080, *10 Mutator_polarity.png
 ;MsgBox % FoundX
 if (ErrorLevel = 2)
     MsgBox Could not conduct the search.
