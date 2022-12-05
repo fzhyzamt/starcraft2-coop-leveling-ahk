@@ -10,3 +10,6 @@
 ### 要用到的命令
 - [ImageSearch](https://wyagd001.github.io/zh-cn/docs/commands/ImageSearch.htm)
 - [PixelGetColor](https://wyagd001.github.io/zh-cn/docs/commands/PixelGetColor.htm)
+
+### 调试脚本
+- [ListVars、Pause](https://wyagd001.github.io/zh-cn/docs/Scripts.htm#debug)
