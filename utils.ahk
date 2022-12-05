@@ -1,10 +1,10 @@
 
-WaitToColorAllMatch(pixelArray, color) {
+WaitToColorAllMatch(pixelArray, color, limit:=20) {
     Loop {
         anyNo := 0
         for k,v in pixelArray {
             PixelGetColor, BGRColor, v.x, v.y
-            if not IsLikeColor(BGRColor, color, 20) {
+            if not IsLikeColor(BGRColor, color, limit) {
                 anyNo = 1
                 break
             }

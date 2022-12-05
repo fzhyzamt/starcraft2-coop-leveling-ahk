@@ -18,6 +18,7 @@ if not SC_HWND
 ; 主循环
 ; TODO https://www.autohotkey.com/boards/viewtopic.php?t=57152 切出时暂停
 Loop {
+    ; TODO 等待页面按钮
     ; TODO 判断是否要激活威望、切换指挥官
     StartGame()
 
@@ -33,6 +34,7 @@ Loop {
     } else {
         OnGameEnding()
     }
+    Sleep 8000
 }
 }
 
@@ -101,6 +103,8 @@ OnGameEnding()
 {
     WaitToColorAllMatch(SuccessPagePixel(), 0xEBFCDB)
     Send s
+    WaitToColorAllMatch(SuccessPage2Pixel(), 0xFFFFFF, 5)
+    Click 500 1700
 }
 
 ; 检查是否有极性不定因子
