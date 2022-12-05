@@ -67,7 +67,7 @@ if CheckMemberInvalid() {
 }
 Click 500 1900
 Sleep 500
-MouseMove, 0, 0
+MouseMove, 1, 1
 }
 
 ; 检查队伍是否有人,防止匹到野队去
