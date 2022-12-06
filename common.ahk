@@ -1,4 +1,5 @@
 ﻿#include utils.ahk
+#NoEnv
 #SingleInstance force
 FileInstall, Mutator_polarity.png, Mutator_polarity.png
 
@@ -31,8 +32,9 @@ Loop {
     ; 判断极性
     if HasPolarity() {
         F10Q()
+        OnGameEndingFail()
     } else {
-        OnGameEnding()
+        OnGameEndingSuccess()
     }
     Sleep 8000
 }
@@ -63,24 +65,32 @@ StartGame()
 ;WinWaitActive
 if CheckMemberInvalid() {
     MsgBox 队伍人数不正确
-    ExitApp
+    reload
 }
-Click 500 1900
+x := CP(500)
+y := CP(1900)
+Click, %x% %y%
 Sleep 500
-MouseMove, 1, 1
+MouseMove, 20, 20
 }
 
 ; 检查队伍是否有人,防止匹到野队去
 CheckMemberInvalid() {
-    PixelGetColor, BGRColor, 3585, 35
+    x := CP(3585)
+    y := CP(35)
+    PixelGetColor, BGRColor, %x%, %y%
     if not IsLikeColor(BGRColor, 0x0F141B, 10)
         return 0
 
-    PixelGetColor, BGRColor2, 3555, 89
+    x := CP(3555)
+    y := CP(89)
+    PixelGetColor, BGRColor2, %x%, %y%
     if not IsLikeColor(BGRColor2, 0x0E1925, 10)
         return 0
 
-    PixelGetColor, BGRColor3, 3578, 55
+    x := CP(3578)
+    y := CP(55)
+    PixelGetColor, BGRColor3, %x%, %y%
     if not IsLikeColor(BGRColor3, 0x6192B8, 10)
         return 0
 
@@ -99,19 +109,26 @@ WaitEnteringGame()
 }
 
 ; 等待结束按钮并点退出
-OnGameEnding()
+OnGameEndingSuccess()
 {
-    WaitToColorAllMatch(SuccessPagePixel(), 0xEBFCDB)
+    WaitToColorAllMatch(SuccessPagePixel(), 0xFFFFFF, 40)
+    Sleep 1000
     Send s
     WaitToColorAllMatch(SuccessPage2Pixel(), 0xFFFFFF, 5)
     Click 500 1700
+}
+
+OnGameEndingFail()
+{
+
 }
 
 ; 检查是否有极性不定因子
 HasPolarity()
 {
 ; https://www.autohotkey.com/docs/misc/DPIScaling.htm
-ImageSearch, FoundX, FoundY, A_ScreenWidth * 0.9, A_ScreenHeight * 0.2, A_ScreenWidth, A_ScreenHeight * 0.8, *10 Mutator_polarity.png
+iw := 68 / PixelRate()
+ImageSearch, FoundX, FoundY, A_ScreenWidth * 0.9, A_ScreenHeight * 0.2, A_ScreenWidth, A_ScreenHeight * 0.8, *10 *w%iw% *h-1 Mutator_polarity.png
 if (ErrorLevel = 2)
     MsgBox Could not conduct the search.
 else if (ErrorLevel = 1)
@@ -133,5 +150,5 @@ F10Q()
 Esc::
 {
     MsgBox % "终止脚本"
-    ExitApp
+    reload
 }

@@ -13,11 +13,15 @@ CallHyperions()
 }
 CallHyperion(mx, my)
 {
-    i := 5
+    i:=5
+    mx := CP(mx)
+    my := CP(my)
+    mx-=(i/2)
     while i > 0
     {
         mx++
         Send ^z
+        Sleep 100
         Click %mx% %my%
         Sleep 100
         i--
