@@ -115,12 +115,14 @@ OnGameEndingSuccess()
     Sleep 1000
     Send s
     WaitToColorAllMatch(SuccessPage2Pixel(), 0xFFFFFF, 5)
-    Click 500 1700
+    x := CP(500)
+    y := CP(1700)
+    Click %x% %y%
 }
 
 OnGameEndingFail()
 {
-
+; FIXME
 }
 
 ; 检查是否有极性不定因子
