@@ -34,10 +34,10 @@ Loop {
     ; 判断极性
     if HasPolarity() {
         F10Q()
-        img := "likai_" P_RATE ".png"
     } else {
         OnGameEndingSuccess()
     }
+    img := "likai_" P_RATE ".png"
     WaitToImageMatch(img, A_ScreenWidth * 0.04, A_ScreenHeight * 0.74, A_ScreenWidth * 0.2, A_ScreenHeight * 0.83)
     x := CP(500)
     y := CP(1700)
