@@ -1,4 +1,4 @@
-P_RATE := PixelRate()
+﻿P_RATE := PixelRate()
 
 WaitToImageMatch(img, x1, y1, x2, y2) {
     img := "img/" img
