@@ -1,7 +1,8 @@
 ﻿#include utils.ahk
 #NoEnv
 #SingleInstance force
-FileInstall, Mutator_polarity.png, Mutator_polarity.png
+FileInstall, Mutator_polarity_1.png, Mutator_polarity_1.png
+FileInstall, Mutator_polarity_2.png, Mutator_polarity_2.png
 
 ^+r::
 MainLoop()
@@ -128,9 +129,9 @@ OnGameEndingFail()
 ; 检查是否有极性不定因子
 HasPolarity()
 {
-; https://www.autohotkey.com/docs/misc/DPIScaling.htm
-iw := 68 / PixelRate()
-ImageSearch, FoundX, FoundY, A_ScreenWidth * 0.9, A_ScreenHeight * 0.2, A_ScreenWidth, A_ScreenHeight * 0.8, *10 *w%iw% *h-1 Mutator_polarity.png
+rate := PixelRate()
+img := "Mutator_polarity_" rate ".png"
+ImageSearch, FoundX, FoundY, A_ScreenWidth * 0.9, A_ScreenHeight * 0.2, A_ScreenWidth, A_ScreenHeight * 0.8, *10 %img%
 if (ErrorLevel = 2)
     MsgBox Could not conduct the search.
 else if (ErrorLevel = 1)
