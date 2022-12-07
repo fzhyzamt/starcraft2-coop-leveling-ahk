@@ -13,7 +13,7 @@ CallHyperions()
 }
 CallHyperion(mx, my)
 {
-    i:=5
+    i:=6
     mx := CP(mx)
     my := CP(my)
     mx-=(i/2)
