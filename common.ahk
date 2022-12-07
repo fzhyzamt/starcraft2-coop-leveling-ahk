@@ -113,7 +113,7 @@ WaitInHall() {
 ; 等待倒计时、读条等，直到进入游戏UI加载完毕
 WaitEnteringGame()
 {
-    WaitToColorAllMatch(TargetPixel(), 0x00FF00)
+    WaitToColorAllMatch(TargetPixel(), 0x00FF00, 10)
 }
 
 ; 等待结束按钮并点退出
