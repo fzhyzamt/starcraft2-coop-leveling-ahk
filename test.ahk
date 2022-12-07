@@ -2,11 +2,16 @@
 ; #Warn All, StdOut  ; Enable warnings to assist with detecting common errors.
 ;SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 ;SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
-CoordMode, Pixel, Screen
+;CoordMode, Pixel, Screen
 
 ^r::
-iw := 34
-ImageSearch, FoundX, FoundY, 0, 0, 3840, 2160, *30 Mutator_polarity.png
+; https://www.autohotkey.com/docs/misc/DPIScaling.htm
+;MsgBox % A_ScreenWidth " " A_ScreenHeight
+;ImageSearch, FoundX, FoundY, 0, 0, A_ScreenWidth, A_ScreenHeight, *10 Mutator_polarity_2.png
+;img := Mutator_polarity_%rate%.png
+rate := 2
+img := "Mutator_polarity_" rate ".png"
+ImageSearch, FoundX, FoundY, 0, 0, A_ScreenWidth, A_ScreenHeight, *10 %img%
 if (ErrorLevel = 2)
     MsgBox 错误
 else if (ErrorLevel = 1)
