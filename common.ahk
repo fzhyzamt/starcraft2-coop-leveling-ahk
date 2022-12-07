@@ -10,6 +10,7 @@ return
 
 MainLoop()
 {
+global P_RATE
 SC_HWND := WinExist("ahk_exe SC2_x64.exe")
 ;SC_HWND := WinExist("ahk_exe Taskmgr.exe")
 if not SC_HWND

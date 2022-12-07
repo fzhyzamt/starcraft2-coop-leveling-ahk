@@ -8,7 +8,8 @@ CoordMode, Pixel, Screen
 ^r::
 ;img := "img/likai_2.png"
 ;ImageSearch, FoundX, FoundY, 0, 0, A_ScreenWidth, A_ScreenHeight, *10 %img%
-img := "likai_2.png"
+img := "likai_" P_RATE ".png"
+
 WaitToImageMatch(img, 0,0, A_ScreenWidth, A_ScreenHeight)
 MsgBox "end"
 if (ErrorLevel = 2)
