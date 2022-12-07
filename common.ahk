@@ -1,8 +1,8 @@
 ﻿#include utils.ahk
 #NoEnv
 #SingleInstance force
-FileInstall, Mutator_polarity_1.png, Mutator_polarity_1.png
-FileInstall, Mutator_polarity_2.png, Mutator_polarity_2.png
+FileInstall, img/Mutator_polarity_1.png, img/Mutator_polarity_1.png
+FileInstall, img/Mutator_polarity_2.png, img/Mutator_polarity_2.png
 
 ^+r::
 MainLoop()
@@ -126,7 +126,7 @@ OnGameEndingSuccess()
 HasPolarity()
 {
 rate := PixelRate()
-img := "Mutator_polarity_" rate ".png"
+img := "img/Mutator_polarity_" rate ".png"
 ImageSearch, FoundX, FoundY, A_ScreenWidth * 0.9, A_ScreenHeight * 0.2, A_ScreenWidth, A_ScreenHeight * 0.8, *10 %img%
 if (ErrorLevel = 2)
     MsgBox Could not conduct the search.
