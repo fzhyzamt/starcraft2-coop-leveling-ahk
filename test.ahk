@@ -2,16 +2,11 @@
 ; #Warn All, StdOut  ; Enable warnings to assist with detecting common errors.
 ;SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 ;SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
-;CoordMode, Pixel, Screen
+CoordMode, Pixel, Screen
 
 ^r::
-; https://www.autohotkey.com/docs/misc/DPIScaling.htm
-;MsgBox % A_ScreenWidth " " A_ScreenHeight
-;ImageSearch, FoundX, FoundY, 0, 0, A_ScreenWidth, A_ScreenHeight, *10 Mutator_polarity_2.png
-;img := Mutator_polarity_%rate%.png
-rate := 2
-img := "Mutator_polarity_" rate ".png"
-ImageSearch, FoundX, FoundY, 0, 0, A_ScreenWidth, A_ScreenHeight, *10 %img%
+img := "img/likai_1.png"
+ImageSearch, FoundX, FoundY, A_ScreenWidth * 0.04, A_ScreenHeight * 0.74, A_ScreenWidth * 0.2, A_ScreenHeight * 0.83, *10 %img%
 if (ErrorLevel = 2)
     MsgBox 错误
 else if (ErrorLevel = 1)
@@ -20,13 +15,6 @@ else
     MsgBox The icon was found at %FoundX%x%FoundY%.
 return
 
-^e::
-mx := 300
-my := 1000
-Send ^z
-Sleep 100
-Click %mx% %my%
-return
 
 PixelRate() {
     if (A_ScreenWidth = 3840) {

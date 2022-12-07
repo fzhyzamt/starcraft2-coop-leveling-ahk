@@ -30,13 +30,18 @@ Loop {
     ; 使用面板
     OnEnteringGame()
 
+; TODO 固定因子不用检测极性
     ; 判断极性
     if HasPolarity() {
         F10Q()
-        OnGameEndingFail()
+        img := "likai_" P_RATE ".png"
     } else {
         OnGameEndingSuccess()
     }
+    WaitToImageMatch(img, A_ScreenWidth * 0.04, A_ScreenHeight * 0.74, A_ScreenWidth * 0.2, A_ScreenHeight * 0.83)
+    x := CP(500)
+    y := CP(1700)
+    Click %x% %y%
     Sleep 8000
 }
 }
@@ -115,15 +120,10 @@ OnGameEndingSuccess()
     WaitToColorAllMatch(SuccessPagePixel(), 0xFFFFFF, 40)
     Sleep 1000
     Send s
-    WaitToColorAllMatch(SuccessPage2Pixel(), 0xFFFFFF, 5)
+    ;WaitToColorAllMatch(SuccessPage2Pixel(), 0xFFFFFF, 5)
     x := CP(500)
     y := CP(1700)
     Click %x% %y%
-}
-
-OnGameEndingFail()
-{
-; FIXME
 }
 
 ; 检查是否有极性不定因子

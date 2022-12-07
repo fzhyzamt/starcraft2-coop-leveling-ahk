@@ -1,21 +1,38 @@
+P_RATE := PixelRate()
+
+WaitToImageMatch(img, x1, y1, x2, y2) {
+    img := "img/" img
+    Loop {
+        ImageSearch, FoundX, FoundY, %x1%, %y1%, %x2%, %y2%, *10 %img%
+        if (ErrorLevel = 2)
+            MsgBox Could not conduct the search.
+        else if (ErrorLevel = 1)
+            continue
+        else
+            return
+        Sleep 3000
+    }
+}
 
 WaitToColorAllMatch(pixelArray, color, limit:=20) {
     Loop {
-        anyNo := 0
-        for k,v in pixelArray {
-            x := CP(v.x)
-            y := CP(v.y)
-            PixelGetColor, BGRColor, %x%, %y%
-            if not IsLikeColor(BGRColor, color, limit) {
-                anyNo = 1
-                break
-            }
-        }
-        if (anyNo = 0) {
+        if IsColorArrayAllMatch(pixelArray, color, limit) {
             return
         }
         Sleep 3000
     }
+}
+
+IsColorArrayAllMatch(pixelArray, color, limit:=20) {
+    for k,v in pixelArray {
+        x := CP(v.x)
+        y := CP(v.y)
+        PixelGetColor, BGRColor, %x%, %y%
+        if not IsLikeColor(BGRColor, color, limit) {
+            return 0
+        }
+    }
+    return 1
 }
 
 ; 检查颜色是否相像
