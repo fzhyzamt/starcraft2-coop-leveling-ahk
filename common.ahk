@@ -74,6 +74,7 @@ if CheckMemberInvalid() {
     MsgBox 队伍人数不正确
     reload
 }
+; TODO 检查按钮亮没亮, 比如队友还没出来
 x := CP(500)
 y := CP(1900)
 Click, %x% %y%
@@ -119,7 +120,10 @@ WaitEnteringGame()
 OnGameEndingSuccess()
 {
     WaitToColorAllMatch(SuccessPagePixel(), 0xFFFFFF, 40)
-    Sleep 1000
+    Send s
+    Sleep 500
+    Send s
+    Sleep 500
     Send s
 }
 
