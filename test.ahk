@@ -8,9 +8,9 @@ CoordMode, Pixel, Screen
 ^r::
 ;img := "img/likai_2.png"
 ;ImageSearch, FoundX, FoundY, 0, 0, A_ScreenWidth, A_ScreenHeight, *10 %img%
-rate := 2
-img := "img/Mutator_polarity_" rate ".png"
-ImageSearch, FoundX, FoundY, 0, 0, A_ScreenWidth, A_ScreenHeight, *10 %img%
+rate := 1
+img := "img/xuanren_" rate ".png"
+ImageSearch, FoundX, FoundY, 0, 0, A_ScreenWidth, A_ScreenHeight, *5 *TransBlack %img%
 if (ErrorLevel = 2)
     MsgBox 错误
 else if (ErrorLevel = 1)

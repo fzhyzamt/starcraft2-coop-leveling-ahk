@@ -10,9 +10,7 @@ return
 
 MainLoop()
 {
-global P_RATE
 SC_HWND := WinExist("ahk_exe SC2_x64.exe")
-;SC_HWND := WinExist("ahk_exe Taskmgr.exe")
 if not SC_HWND
 {
     MsgBox % "星际2未运行"
@@ -21,7 +19,7 @@ if not SC_HWND
 ; 主循环
 ; TODO https://www.autohotkey.com/boards/viewtopic.php?t=57152 切出时暂停
 Loop {
-    ; TODO 等待页面按钮
+    WaitReadyButton()
     ; TODO 判断是否要激活威望、切换指挥官
     StartGame()
 
@@ -38,18 +36,26 @@ Loop {
     } else {
         OnGameEndingSuccess()
     }
+;    Sleep 8000
+    WaitToLeaveReportPage()
+}
+}
+
+; 离开回到大厅的小计页面
+WaitToLeaveReportPage() {
+    global P_RATE
     img := "likai_" P_RATE ".png"
     WaitToImageMatch(img, A_ScreenWidth * 0.04, A_ScreenHeight * 0.74, A_ScreenWidth * 0.2, A_ScreenHeight * 0.83)
     x := CP(500)
     y := CP(1700)
     Click %x% %y%
-    Sleep 8000
-}
 }
 
-HallPixel() {
-    ;大厅里"合作任务"那几个字
-    return [{x:225,y:301},{x:237,y:337},{x:285,y:319},{x:285,y:333},{x:341,y:322}]
+; 等待准备就绪按钮
+WaitReadyButton() {
+    global P_RATE
+    img := "zhunbeijiuxu_" P_RATE ".png"
+    WaitToImageMatch(img, A_ScreenWidth * 0.04, A_ScreenHeight * 0.8, A_ScreenWidth * 0.2, A_ScreenHeight * 0.92)
 }
 
 TargetPixel() {
@@ -60,11 +66,6 @@ TargetPixel() {
 SuccessPagePixel() {
     ; 游戏内胜利那两个字
     return [{x:1806, y:473},{x:1878,y:465},{x:1878,y:503},{x:1878,y:543},{x:1964,y:475}]
-}
-
-SuccessPage2Pixel() {
-    ; 退出到大厅的胜利那两个字
-    return [{x:221, y:391},{x:327,y:373},{x:269,y:385},{x:269,y:437},{x:405,y:429}]
 }
 
 StartGame()
@@ -105,11 +106,6 @@ CheckMemberInvalid() {
     return 1
 }
 
-; 等待直到进入大厅
-WaitInHall() {
-    WaitToColorAllMatch(HallPixel(), 0xFFFFFF)
-}
-
 ; 等待倒计时、读条等，直到进入游戏UI加载完毕
 WaitEnteringGame()
 {
@@ -130,8 +126,8 @@ OnGameEndingSuccess()
 ; 检查是否有极性不定因子
 HasPolarity()
 {
-rate := PixelRate()
-img := "img/Mutator_polarity_" rate ".png"
+global P_RATE
+img := "img/Mutator_polarity_" P_RATE ".png"
 ImageSearch, FoundX, FoundY, A_ScreenWidth * 0.9, A_ScreenHeight * 0.2, A_ScreenWidth, A_ScreenHeight * 0.8, *10 %img%
 if (ErrorLevel = 2)
     MsgBox Could not conduct the search.
