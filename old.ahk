@@ -29,3 +29,13 @@ SendNuke(mx, my)
     Sleep, 500
     Click, 1950 950
 }
+
+
+
+SuccessPagePixel() {
+    ; 游戏内胜利那两个字
+    return [{x:1806, y:473},{x:1878,y:465},{x:1878,y:503},{x:1878,y:543},{x:1964,y:475}]
+}
+WaitToColorAllMatch(SuccessPagePixel(), 0xFFFFFF, 40)
+
+WaitToColorAllMatch(TargetPixel(), 0x00FF00, 10)

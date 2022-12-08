@@ -6,19 +6,24 @@
 CoordMode, Pixel, Screen
 
 ^r::
-;img := "img/likai_2.png"
-;ImageSearch, FoundX, FoundY, 0, 0, A_ScreenWidth, A_ScreenHeight, *10 %img%
-rate := 1
-img := "img/xuanren_" rate ".png"
-ImageSearch, FoundX, FoundY, 0, 0, A_ScreenWidth, A_ScreenHeight, *5 *TransBlack %img%
+WaitToImageMatch("zhunbeijiuxu", 0, 0, A_ScreenWidth, A_ScreenHeight, "0x333333")
+;ImageSearch, FoundX, FoundY, %x1%, %y1%, %x2%, %y2%, %img%
+MsgBox zzzzzz
 if (ErrorLevel = 2)
     MsgBox 错误
 else if (ErrorLevel = 1)
     MsgBox 未找到
 else
-    MsgBox The icon was found at %FoundX%x%FoundY%.
+    MsgBox 找到了, 位于%FoundX%x%FoundY%.
 return
 
+^t::
+    if IsColorArrayAllMatch(TargetPixel(), 0x00FF00, 10) {
+        MsgBox 匹配
+    } else {
+        MsgBox NO
+    }
+return
 
 OnEnteringGame(){
 

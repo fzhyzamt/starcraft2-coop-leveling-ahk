@@ -1,9 +1,13 @@
-﻿P_RATE := PixelRate()
+﻿global P_RATE := PixelRate()
 
-WaitToImageMatch(img, x1, y1, x2, y2) {
-    img := "img/" img
+WaitToImageMatch(img, x1, y1, x2, y2, color:="", n:=20) {
+    img := "*" n " " CI(img)
+    if (color != "") {
+        img := "*Trans" color " " img
+    }
+    MsgBox % img
     Loop {
-        ImageSearch, FoundX, FoundY, %x1%, %y1%, %x2%, %y2%, *10 %img%
+        ImageSearch, FoundX, FoundY, %x1%, %y1%, %x2%, %y2%, %img%
         if (ErrorLevel = 2)
             MsgBox Could not conduct the search.
         else if (ErrorLevel = 1)
@@ -37,9 +41,9 @@ IsColorArrayAllMatch(pixelArray, color, limit:=20) {
 
 ; 检查颜色是否相像
 IsLikeColor(c1, c2, limit:=0) {
-    return (Abs((c1 & 0xFF0000 >> 16) - (c2 & 0xFF0000 >> 16)) < limit)
-    and (Abs((c1 & 0xFF00 >> 8) - (c2 & 0xFF00 >> 8)) < limit)
-    and (Abs((c1 & 0xFF) - (c2 & 0xFF)) < limit)
+    return (Abs(((c1 & 0xFF0000) >> 16) - ((c2 & 0xFF0000) >> 16)) < limit)
+       and (Abs(((c1 & 0x00FF00) >> 8)  - ((c2 & 0x00FF00) >> 8))  < limit)
+       and (Abs((c1 & 0x0000FF)         - (c2 & 0x0000FF))             < limit)
 }
 
 PixelRate() {
@@ -56,4 +60,9 @@ PixelRate() {
 ; 转换像素值
 CP(p) {
     return p / PixelRate()
+}
+
+; 设置图片名
+CI(f) {
+    return "img/" f "_" 2 ".png"
 }

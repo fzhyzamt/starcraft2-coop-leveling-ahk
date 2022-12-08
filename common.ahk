@@ -43,9 +43,7 @@ Loop {
 
 ; 离开回到大厅的小计页面
 WaitToLeaveReportPage() {
-    global P_RATE
-    img := "likai_" P_RATE ".png"
-    WaitToImageMatch(img, A_ScreenWidth * 0.04, A_ScreenHeight * 0.74, A_ScreenWidth * 0.2, A_ScreenHeight * 0.83)
+    WaitToImageMatch("likai", A_ScreenWidth * 0.04, A_ScreenHeight * 0.74, A_ScreenWidth * 0.2, A_ScreenHeight * 0.83)
     x := CP(500)
     y := CP(1700)
     Click %x% %y%
@@ -53,20 +51,9 @@ WaitToLeaveReportPage() {
 
 ; 等待准备就绪按钮
 WaitReadyButton() {
-    global P_RATE
-    img := "zhunbeijiuxu_" P_RATE ".png"
-    WaitToImageMatch(img, A_ScreenWidth * 0.04, A_ScreenHeight * 0.8, A_ScreenWidth * 0.2, A_ScreenHeight * 0.92)
+    WaitToImageMatch("zhunbeijiuxu", A_ScreenWidth * 0.04, A_ScreenHeight * 0.8, A_ScreenWidth * 0.2, A_ScreenHeight * 0.92)
 }
 
-TargetPixel() {
-    ; 左上 中上 左下 中下 右下
-    return [{x:142,y:1763},{x:342,y:1774},{x:140,y:1945},{x:310,y:2002},{x:464,y:1934}]
-}
-
-SuccessPagePixel() {
-    ; 游戏内胜利那两个字
-    return [{x:1806, y:473},{x:1878,y:465},{x:1878,y:503},{x:1878,y:543},{x:1964,y:475}]
-}
 
 StartGame()
 {
@@ -106,28 +93,32 @@ CheckMemberInvalid() {
     return 1
 }
 
+TargetPixel() {
+    ; 左上 中上 左下 中下 右下
+    return [{x:142,y:1763},{x:342,y:1774},{x:140,y:1945},{x:310,y:2002},{x:464,y:1934}]
+}
+
 ; 等待倒计时、读条等，直到进入游戏UI加载完毕
 WaitEnteringGame()
 {
     WaitToColorAllMatch(TargetPixel(), 0x00FF00, 10)
+;    WaitToImageMatch("jingkuang", A_ScreenWidth * 0.78, 0, A_ScreenWidth * 0.85, A_ScreenHeight * 0.06, "Black")
+;    Sleep 5000
 }
 
 ; 等待结束按钮并点退出
 OnGameEndingSuccess()
 {
-    WaitToColorAllMatch(SuccessPagePixel(), 0xFFFFFF, 40)
-    Send s
-    Sleep 500
-    Send s
-    Sleep 500
+MsgBox 开始检查得分画面
+    WaitToImageMatch("defenhuamian", A_ScreenWidth * 0.46, A_ScreenHeight * 0.58, A_ScreenWidth * 0.54, A_ScreenHeight * 0.64, "0x333333")
+    Sleep 1000
     Send s
 }
 
 ; 检查是否有极性不定因子
 HasPolarity()
 {
-global P_RATE
-img := "img/Mutator_polarity_" P_RATE ".png"
+img := CI("Mutator_polarity")
 ImageSearch, FoundX, FoundY, A_ScreenWidth * 0.9, A_ScreenHeight * 0.2, A_ScreenWidth, A_ScreenHeight * 0.8, *10 %img%
 if (ErrorLevel = 2)
     MsgBox Could not conduct the search.
