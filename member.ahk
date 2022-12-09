@@ -1,4 +1,6 @@
-﻿#include common.ahk
+﻿global NEED_ACTIVE_PRESTIGES := 1
+
+#include common.ahk
 
 OnEnteringGame()
 {

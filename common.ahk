@@ -19,8 +19,13 @@ if not SC_HWND
 ; 主循环
 ; TODO https://www.autohotkey.com/boards/viewtopic.php?t=57152 切出时暂停
 Loop {
+    ; 等待准备游戏按钮亮起
     WaitReadyButton()
-    ; TODO 判断是否要激活威望、切换指挥官
+
+    ; 检查激活威望
+    CheckAndActivePrestiges()
+
+    ; 开始游戏
     StartGame()
 
     ; 等待进入游戏
@@ -29,16 +34,28 @@ Loop {
     ; 使用面板
     OnEnteringGame()
 
-; TODO 固定因子不用检测极性
     ; 判断极性
     if HasPolarity() {
         F10Q()
     } else {
         OnGameEndingSuccess()
     }
+
+    ; 等待离开得分界面
     WaitToLeaveReportPage()
+
+    ; 等待后续弹框等
     WaitFullClearLoop()
 }
+}
+
+; 检查并激活威望
+CheckAndActivePrestiges() {
+    if (NEED_ACTIVE_PRESTIGES != 1) {
+        return
+    }
+
+
 }
 
 ; 离开回到大厅的小计页面
@@ -55,6 +72,9 @@ WaitFullClearLoop() {
             return
         }
         if IsImageMatch("level15_queding", A_ScreenWidth * 0.44, A_ScreenHeight * 0.6, A_ScreenWidth * 0.57, A_ScreenHeight * 0.66) {
+            x := CP(1920)
+            y := CP(1367)
+            Click %x% %y%
             return
         }
         Sleep 2000
