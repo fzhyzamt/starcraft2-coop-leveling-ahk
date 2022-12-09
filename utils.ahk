@@ -36,7 +36,7 @@ WaitToColorAllMatch(pixelArray, color, limit:=20) {
         if IsColorArrayAllMatch(pixelArray, color, limit) {
             return
         }
-        Sleep 3000
+        Sleep 1000
     }
 }
 
