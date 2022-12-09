@@ -213,9 +213,7 @@ OnGameEndingSuccess()
 ; 检查是否有极性不定因子
 HasPolarity()
 {
-    i := 3
-    while (i > 0) {
-        i -= 1
+    while (A_Index < 4) {
         if IsImageMatch("Mutator_polarity", A_ScreenWidth * 0.9, A_ScreenHeight * 0.2, A_ScreenWidth, A_ScreenHeight * 0.8) {
             return 1
         }
