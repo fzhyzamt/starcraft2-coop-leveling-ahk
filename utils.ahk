@@ -14,6 +14,7 @@ IsImageMatch(img, x1, y1, x2, y2, color:="", n:=20) {
     if (color != "") {
         img := "*Trans" color " " img
     }
+    ;MsgBox % "开始查找 " x1 " " y1 " " x2 " " y2 " " img
     ImageSearch, FoundX, FoundY, %x1%, %y1%, %x2%, %y2%, %img%
     if (ErrorLevel = 2)
         MsgBox Could not conduct the search.
@@ -38,6 +39,7 @@ IsColorArrayAllMatch(pixelArray, color, limit:=20) {
         y := CP(v.y)
         PixelGetColor, BGRColor, %x%, %y%
         if not IsLikeColor(BGRColor, color, limit) {
+            ;MsgBox % "不匹配:(" x "," y ") " BGRColor
             return 0
         }
     }

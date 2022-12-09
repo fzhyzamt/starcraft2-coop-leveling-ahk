@@ -7,7 +7,7 @@ CoordMode, Pixel, Screen
 
 ^r::
 global P_RATE := 2
-if IsImageMatch("jingkuang", 0, 0, A_ScreenWidth, A_ScreenHeight) {
+if IsImageMatch("level15_queding", A_ScreenWidth * 0.44, A_ScreenHeight * 0.6, A_ScreenWidth * 0.57, A_ScreenHeight * 0.66) {
     MsgBox 匹配
 } else {
     MsgBox 未找到
@@ -22,7 +22,7 @@ if IsImageMatch("jingkuang", 0, 0, A_ScreenWidth, A_ScreenHeight) {
 return
 
 ^t::
-    if IsColorArrayAllMatch(TargetPixel(), 0x00FF00, 10) {
+    if IsColorArrayAllMatch(TargetPixel(), 0x00FF00, 30) {
         MsgBox 匹配
     } else {
         MsgBox NO

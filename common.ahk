@@ -36,8 +36,8 @@ Loop {
     } else {
         OnGameEndingSuccess()
     }
-;    Sleep 8000
     WaitToLeaveReportPage()
+    WaitFullClearLoop()
 }
 }
 
@@ -48,6 +48,19 @@ WaitToLeaveReportPage() {
     y := CP(1700)
     Click %x% %y%
 }
+
+WaitFullClearLoop() {
+    Loop {
+        if IsImageMatch("zhunbeijiuxu", A_ScreenWidth * 0.04, A_ScreenHeight * 0.8, A_ScreenWidth * 0.2, A_ScreenHeight * 0.92) {
+            return
+        }
+        if IsImageMatch("level15_queding", A_ScreenWidth * 0.44, A_ScreenHeight * 0.6, A_ScreenWidth * 0.57, A_ScreenHeight * 0.66) {
+            return
+        }
+        Sleep 2000
+    }
+}
+
 
 ; 等待准备就绪按钮
 WaitReadyButton() {
@@ -95,7 +108,7 @@ CheckMemberInvalid() {
 
 TargetPixel() {
     ; 左上 中上 左下 中下 右下
-    return [{x:142,y:1763},{x:342,y:1774},{x:140,y:1945},{x:310,y:2002},{x:464,y:1934}]
+    return [{x:142,y:1764},{x:342,y:1774},{x:140,y:1946},{x:310,y:2002},{x:464,y:1934}]
 }
 
 ; 等待倒计时、读条等，直到进入游戏UI加载完毕
@@ -108,8 +121,9 @@ WaitEnteringGame()
 ; 等待结束按钮并点退出
 OnGameEndingSuccess()
 {
-MsgBox 开始检查得分画面
-    WaitToImageMatch("defenhuamian", A_ScreenWidth * 0.46, A_ScreenHeight * 0.58, A_ScreenWidth * 0.54, A_ScreenHeight * 0.64, "0x333333", 20)
+    ;MsgBox 开始检查得分画面
+    WaitToImageMatch("defenhuamian", A_ScreenWidth * 0.46, A_ScreenHeight * 0.58, A_ScreenWidth * 0.54, A_ScreenHeight * 0.64, "0x333333", 40)
+    ;MsgBox 结束检查得分画面
     Sleep 1000
     Send s
 }
