@@ -120,10 +120,26 @@ ChangeToNextCommander() {
 
 ; 离开回到大厅的小计页面
 WaitToLeaveReportPage() {
-    WaitToImageMatch("likai", A_ScreenWidth * 0.04, A_ScreenHeight * 0.74, A_ScreenWidth * 0.2, A_ScreenHeight * 0.83)
-    x := CP(500)
-    y := CP(1700)
-    Click %x% %y%
+    Loop {
+        if IsImageMatch("likai", A_ScreenWidth * 0.04, A_ScreenHeight * 0.74, A_ScreenWidth * 0.2, A_ScreenHeight * 0.83) {
+            x := CP(500)
+            y := CP(1700)
+            Click %x% %y%
+            return
+        }
+        if IsImageMatch("error", CP(1700), CP(850), CP(2142), CP(1092)) {
+            x := CP(3244)
+            y := CP(122)
+            Click %x% %y%
+            Sleep 1000
+            x := CP(450)
+            y := CP(64)
+            Click %x% %y%
+            return
+        }
+        Sleep 1000
+    }
+    ;WaitToImageMatch("likai", A_ScreenWidth * 0.04, A_ScreenHeight * 0.74, A_ScreenWidth * 0.2, A_ScreenHeight * 0.83)
 }
 
 WaitFullClearLoop() {
@@ -197,7 +213,7 @@ TargetPixel() {
 WaitEnteringGame()
 {
     WaitToImageMatch("jingkuang", A_ScreenWidth * 0.78, 0, A_ScreenWidth * 0.85, A_ScreenHeight * 0.06, "Black")
-    Sleep 5000
+    Sleep 10000
 }
 
 ; 等待结束按钮并点退出
@@ -213,7 +229,7 @@ OnGameEndingSuccess()
 ; 检查是否有极性不定因子
 HasPolarity()
 {
-    while (A_Index < 4) {
+    while (A_Index < 10) {
         if IsImageMatch("Mutator_polarity", A_ScreenWidth * 0.9, A_ScreenHeight * 0.2, A_ScreenWidth, A_ScreenHeight * 0.8) {
             return 1
         }

@@ -2,7 +2,7 @@
 
 OnEnteringGame()
 {
-    WaitToColorAllMatch(TargetPixel(), 0x00FF00, 30)
+    ;WaitToColorAllMatch(TargetPixel(), 0x00FF00, 30)
     CallHyperions()
 }
 
