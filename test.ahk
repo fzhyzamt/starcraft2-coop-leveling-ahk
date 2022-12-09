@@ -7,7 +7,7 @@ CoordMode, Pixel, Screen
 
 ^r::
 global P_RATE := 2
-if IsImageMatch("defenhuamian", 0, 0, A_ScreenWidth, A_ScreenHeight, "0x333333") {
+if IsImageMatch("jingkuang", 0, 0, A_ScreenWidth, A_ScreenHeight) {
     MsgBox 匹配
 } else {
     MsgBox 未找到
