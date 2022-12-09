@@ -57,13 +57,25 @@ CheckAndActivePrestiges() {
     if not IsImageMatch("manjibiankuang", A_ScreenWidth * 0.03, A_ScreenHeight * 0.2, A_ScreenWidth * 0.43, A_ScreenHeight * 0.42, "Black") {
         return
     }
+    ; 当前选择的指挥官已满级
     x := CP(450)
     y := CP(1640)
     Click %x% %y% ; 点击自定义按钮
     Sleep 3000
-    if not IsImageMatch("jihuoweiwang", A_ScreenWidth * 0.6, A_ScreenHeight * 0.25, A_ScreenWidth * 0.76, A_ScreenHeight * 0.3) {
-        return
+    ; 检查激活威望按钮, 亮着就激活, 没亮就是满了换到下一个指挥官
+    if IsImageMatch("jihuoweiwang", A_ScreenWidth * 0.6, A_ScreenHeight * 0.25, A_ScreenWidth * 0.76, A_ScreenHeight * 0.3) {
+        ActivePrestiges()
+        ClosePrestigesWindow()
+    } else {
+        ClosePrestigesWindow()
+        ChangeToNextCommander()
     }
+
+    WaitReadyButton()
+}
+
+; 激活当前指挥官的威望
+ActivePrestiges() {
     x := CP(2700)
     y := CP(605)
     Click %x% %y% ; 点击激活威望按钮
@@ -78,12 +90,11 @@ CheckAndActivePrestiges() {
     y := CP(1200)
     Click %x% %y% ; 点击第二次确定
     Sleep 2000
+}
 
-    x := CP(1660)
-    y := CP(1762)
-    Click %x% %y% ; 点击确定关闭威望窗口
+; 切换到下一个指挥官
+ChangeToNextCommander() {
 
-    WaitReadyButton()
 }
 
 ; 离开回到大厅的小计页面
@@ -187,6 +198,12 @@ else if (ErrorLevel = 1)
     return 0
 else
     return 1
+}
+
+ClosePrestigesWindow() {
+    x := CP(1660)
+    y := CP(1762)
+    Click %x% %y% ; 点击确定关闭威望窗口
 }
 
 

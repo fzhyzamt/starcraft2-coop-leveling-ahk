@@ -1,6 +1,4 @@
-﻿global NEED_ACTIVE_PRESTIGES := 1
-
-#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
+﻿#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 #include common.ahk
 ; #Warn All, StdOut  ; Enable warnings to assist with detecting common errors.
 ;SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
