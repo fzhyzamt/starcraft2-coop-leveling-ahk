@@ -54,7 +54,7 @@ CheckAndActivePrestiges() {
     if (NEED_ACTIVE_PRESTIGES != 1) {
         return
     }
-    if not IsImageMatch("manjibiankuang", P_CTM, P_CLM, P_CRM, P_CBM2, "Black") {
+    if not IsImageMatch("manjibiankuang", P_CLM, P_CTM, P_CRM, P_CBM2, "Black") {
         return
     }
     ; 当前选择的指挥官已满级
