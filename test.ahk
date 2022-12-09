@@ -6,15 +6,19 @@
 CoordMode, Pixel, Screen
 
 ^r::
-WaitToImageMatch("zhunbeijiuxu", 0, 0, A_ScreenWidth, A_ScreenHeight, "0x333333")
-;ImageSearch, FoundX, FoundY, %x1%, %y1%, %x2%, %y2%, %img%
-MsgBox zzzzzz
-if (ErrorLevel = 2)
-    MsgBox 错误
-else if (ErrorLevel = 1)
+global P_RATE := 2
+if IsImageMatch("defenhuamian", 0, 0, A_ScreenWidth, A_ScreenHeight, "0x333333") {
+    MsgBox 匹配
+} else {
     MsgBox 未找到
-else
-    MsgBox 找到了, 位于%FoundX%x%FoundY%.
+}
+;ImageSearch, FoundX, FoundY, %x1%, %y1%, %x2%, %y2%, %img%
+;if (ErrorLevel = 2)
+;    MsgBox 错误
+;else if (ErrorLevel = 1)
+;    MsgBox 未找到
+;else
+;    MsgBox 找到了, 位于%FoundX%x%FoundY%.
 return
 
 ^t::

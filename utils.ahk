@@ -1,21 +1,26 @@
 ﻿global P_RATE := PixelRate()
 
 WaitToImageMatch(img, x1, y1, x2, y2, color:="", n:=20) {
+    Loop {
+        if IsImageMatch(img, x1, y1, x2, y2, color, n) {
+            return
+        }
+        Sleep 1000
+    }
+}
+
+IsImageMatch(img, x1, y1, x2, y2, color:="", n:=20) {
     img := "*" n " " CI(img)
     if (color != "") {
         img := "*Trans" color " " img
     }
-    MsgBox % img
-    Loop {
-        ImageSearch, FoundX, FoundY, %x1%, %y1%, %x2%, %y2%, %img%
-        if (ErrorLevel = 2)
-            MsgBox Could not conduct the search.
-        else if (ErrorLevel = 1)
-            continue
-        else
-            return
-        Sleep 3000
-    }
+    ImageSearch, FoundX, FoundY, %x1%, %y1%, %x2%, %y2%, %img%
+    if (ErrorLevel = 2)
+        MsgBox Could not conduct the search.
+    else if (ErrorLevel = 1)
+        return 0
+    else
+        return 1
 }
 
 WaitToColorAllMatch(pixelArray, color, limit:=20) {
@@ -64,5 +69,5 @@ CP(p) {
 
 ; 设置图片名
 CI(f) {
-    return "img/" f "_" 2 ".png"
+    return "img/" f "_" P_RATE ".png"
 }

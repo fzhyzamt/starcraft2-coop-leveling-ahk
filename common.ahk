@@ -101,16 +101,15 @@ TargetPixel() {
 ; 等待倒计时、读条等，直到进入游戏UI加载完毕
 WaitEnteringGame()
 {
-    WaitToColorAllMatch(TargetPixel(), 0x00FF00, 10)
-;    WaitToImageMatch("jingkuang", A_ScreenWidth * 0.78, 0, A_ScreenWidth * 0.85, A_ScreenHeight * 0.06, "Black")
-;    Sleep 5000
+    WaitToImageMatch("jingkuang", A_ScreenWidth * 0.78, 0, A_ScreenWidth * 0.85, A_ScreenHeight * 0.06, "Black")
+    Sleep 5000
 }
 
 ; 等待结束按钮并点退出
 OnGameEndingSuccess()
 {
 MsgBox 开始检查得分画面
-    WaitToImageMatch("defenhuamian", A_ScreenWidth * 0.46, A_ScreenHeight * 0.58, A_ScreenWidth * 0.54, A_ScreenHeight * 0.64, "0x333333")
+    WaitToImageMatch("defenhuamian", A_ScreenWidth * 0.46, A_ScreenHeight * 0.58, A_ScreenWidth * 0.54, A_ScreenHeight * 0.64, "0x333333", 20)
     Sleep 1000
     Send s
 }
