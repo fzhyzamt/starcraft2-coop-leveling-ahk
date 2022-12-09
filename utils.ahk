@@ -1,4 +1,8 @@
 ﻿global P_RATE := PixelRate()
+global LAST_IMAGE_X := 0
+global LAST_IMAGE_Y := 0
+
+#include pixel.ahk
 
 WaitToImageMatch(img, x1, y1, x2, y2, color:="", n:=20) {
     Loop {
@@ -20,8 +24,11 @@ IsImageMatch(img, x1, y1, x2, y2, color:="", n:=20) {
         MsgBox Could not conduct the search.
     else if (ErrorLevel = 1)
         return 0
-    else
+    else {
+        LAST_IMAGE_X := FoundX
+        LAST_IMAGE_Y := FoundY
         return 1
+    }
 }
 
 WaitToColorAllMatch(pixelArray, color, limit:=20) {
@@ -66,7 +73,7 @@ PixelRate() {
 
 ; 转换像素值
 CP(p) {
-    return p / PixelRate()
+    return p / P_RATE
 }
 
 ; 设置图片名

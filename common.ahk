@@ -54,7 +54,7 @@ CheckAndActivePrestiges() {
     if (NEED_ACTIVE_PRESTIGES != 1) {
         return
     }
-    if not IsImageMatch("manjibiankuang", A_ScreenWidth * 0.03, A_ScreenHeight * 0.2, A_ScreenWidth * 0.43, A_ScreenHeight * 0.42, "Black") {
+    if not IsImageMatch("manjibiankuang", P_CTM, P_CLM, P_CRM, P_CBM2, "Black") {
         return
     }
     ; 当前选择的指挥官已满级
@@ -68,6 +68,7 @@ CheckAndActivePrestiges() {
         ClosePrestigesWindow()
     } else {
         ClosePrestigesWindow()
+        Sleep 1000
         ChangeToNextCommander()
     }
 
@@ -94,7 +95,27 @@ ActivePrestiges() {
 
 ; 切换到下一个指挥官
 ChangeToNextCommander() {
-
+    if IsImageMatch("manjibiankuang", P_CLM, P_CTM, CP(1500), P_CBM1, "Black") {
+        ; 当前指挥官是第一排的(除了诺娃), 向右选
+        x := LAST_IMAGE_X + CP(210)
+        y := LAST_IMAGE_Y + CP(100)
+        Click %x% %y%
+        return
+    }
+    if IsImageMatch("manjibiankuang", CP(1480), P_CTM, P_CRM, P_CBM1, "Black") {
+        ; 当前是诺瓦, 选第二排第一个
+        x := CP(780)
+        y := CP(260)
+        Click %x% %y%
+        return
+    }
+    if IsImageMatch("manjibiankuang", P_CLM, P_CBM1, P_CRM, P_CBM2, "Black") {
+         ; 当前是第二排的, 向右选
+         x := LAST_IMAGE_X + CP(210)
+         y := LAST_IMAGE_Y + CP(100)
+         Click %x% %y%
+         return
+     }
 }
 
 ; 离开回到大厅的小计页面
@@ -129,17 +150,19 @@ WaitReadyButton() {
 
 StartGame()
 {
-;WinWaitActive
-if CheckMemberInvalid() {
-    MsgBox 队伍人数不正确
-    reload
+    if CheckMemberInvalid() {
+        MsgBox 队伍人数不正确
+        reload
+    }
+    x := CP(500)
+    y := CP(1900)
+    Click, %x% %y%
+    Sleep 500
+    MouseMoveToMargin()
 }
-; TODO 检查按钮亮没亮, 比如队友还没出来
-x := CP(500)
-y := CP(1900)
-Click, %x% %y%
-Sleep 500
-MouseMove, 20, 20
+
+MouseMoveToMargin() {
+    MouseMove, 20, 20
 }
 
 ; 检查队伍是否有人,防止匹到野队去
@@ -204,6 +227,7 @@ ClosePrestigesWindow() {
     x := CP(1660)
     y := CP(1762)
     Click %x% %y% ; 点击确定关闭威望窗口
+    MouseMoveToMargin()
 }
 
 

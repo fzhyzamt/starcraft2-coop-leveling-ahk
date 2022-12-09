@@ -7,8 +7,12 @@ CoordMode, Pixel, Screen
 
 ^r::
 global P_RATE := 1
-if not IsImageMatch("manjibiankuang", A_ScreenWidth * 0.03, A_ScreenHeight * 0.2, A_ScreenWidth * 0.43, A_ScreenHeight * 0.42, "Black") {
-    MsgBox 匹配
+if IsImageMatch("manjibiankuang", P_CLM, P_CTM, CP(1500), P_CBM1, "Black") {
+    x := LAST_IMAGE_X + CP(210)
+    y := LAST_IMAGE_Y + CP(100)
+;    MsgBox % LAST_IMAGE_X " " LAST_IMAGE_Y
+    Click %x% %y%
+;    MsgBox 匹配
 } else {
     MsgBox 未找到
 }
