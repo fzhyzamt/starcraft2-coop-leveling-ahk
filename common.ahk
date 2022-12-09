@@ -54,8 +54,36 @@ CheckAndActivePrestiges() {
     if (NEED_ACTIVE_PRESTIGES != 1) {
         return
     }
+    if not IsImageMatch("manjibiankuang", A_ScreenWidth * 0.03, A_ScreenHeight * 0.2, A_ScreenWidth * 0.43, A_ScreenHeight * 0.42, "Black") {
+        return
+    }
+    x := CP(450)
+    y := CP(1640)
+    Click %x% %y% ; 点击自定义按钮
+    Sleep 3000
+    if not IsImageMatch("jihuoweiwang", A_ScreenWidth * 0.6, A_ScreenHeight * 0.25, A_ScreenWidth * 0.76, A_ScreenHeight * 0.3) {
+        return
+    }
+    x := CP(2700)
+    y := CP(605)
+    Click %x% %y% ; 点击激活威望按钮
+    Sleep 2000
 
+    x := CP(1600)
+    y := CP(1226)
+    Click %x% %y% ; 点击确定
+    Sleep 2000
 
+    x := CP(1600)
+    y := CP(1200)
+    Click %x% %y% ; 点击第二次确定
+    Sleep 2000
+
+    x := CP(1660)
+    y := CP(1762)
+    Click %x% %y% ; 点击确定关闭威望窗口
+
+    WaitReadyButton()
 }
 
 ; 离开回到大厅的小计页面

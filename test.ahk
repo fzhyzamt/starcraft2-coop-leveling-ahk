@@ -1,4 +1,6 @@
-﻿#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
+﻿global NEED_ACTIVE_PRESTIGES := 1
+
+#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
 #include common.ahk
 ; #Warn All, StdOut  ; Enable warnings to assist with detecting common errors.
 ;SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
@@ -6,8 +8,8 @@
 CoordMode, Pixel, Screen
 
 ^r::
-global P_RATE := 2
-if IsImageMatch("level15_queding", A_ScreenWidth * 0.44, A_ScreenHeight * 0.6, A_ScreenWidth * 0.57, A_ScreenHeight * 0.66) {
+global P_RATE := 1
+if not IsImageMatch("manjibiankuang", A_ScreenWidth * 0.03, A_ScreenHeight * 0.2, A_ScreenWidth * 0.43, A_ScreenHeight * 0.42, "Black") {
     MsgBox 匹配
 } else {
     MsgBox 未找到
@@ -27,6 +29,10 @@ return
     } else {
         MsgBox NO
     }
+return
+
+^g::
+CheckAndActivePrestiges()
 return
 
 OnEnteringGame(){
