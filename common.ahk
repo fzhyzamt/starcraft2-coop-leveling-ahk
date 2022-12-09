@@ -213,14 +213,10 @@ OnGameEndingSuccess()
 ; 检查是否有极性不定因子
 HasPolarity()
 {
-img := CI("Mutator_polarity")
-ImageSearch, FoundX, FoundY, A_ScreenWidth * 0.9, A_ScreenHeight * 0.2, A_ScreenWidth, A_ScreenHeight * 0.8, *10 %img%
-if (ErrorLevel = 2)
-    MsgBox Could not conduct the search.
-else if (ErrorLevel = 1)
+    if IsImageMatch("Mutator_polarity", A_ScreenWidth * 0.9, A_ScreenHeight * 0.2, A_ScreenWidth, A_ScreenHeight * 0.8) {
+        return 1
+    }
     return 0
-else
-    return 1
 }
 
 ClosePrestigesWindow() {
