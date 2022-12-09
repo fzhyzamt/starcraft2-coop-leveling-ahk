@@ -213,7 +213,7 @@ TargetPixel() {
 WaitEnteringGame()
 {
     WaitToImageMatch("jingkuang", A_ScreenWidth * 0.78, 0, A_ScreenWidth * 0.85, A_ScreenHeight * 0.06, "Black")
-    Sleep 10000
+    Sleep 5000
 }
 
 ; 等待结束按钮并点退出
