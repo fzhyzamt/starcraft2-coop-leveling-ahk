@@ -230,7 +230,7 @@ OnGameEndingSuccess()
 HasPolarity()
 {
     while (A_Index < 10) {
-        if IsImageMatch("Mutator_polarity", A_ScreenWidth * 0.9, A_ScreenHeight, A_ScreenWidth, A_ScreenHeight * 0.8) {
+        if IsImageMatch("Mutator_polarity", A_ScreenWidth * 0.9, 0, A_ScreenWidth, A_ScreenHeight * 0.8) {
             return 1
         }
         Sleep 1000
