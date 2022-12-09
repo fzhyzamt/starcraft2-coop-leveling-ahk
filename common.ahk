@@ -229,8 +229,11 @@ OnGameEndingSuccess()
 ; 检查是否有极性不定因子
 HasPolarity()
 {
-    while (A_Index < 10) {
+    while (A_Index < 4) {
         if IsImageMatch("Mutator_polarity", A_ScreenWidth * 0.9, 0, A_ScreenWidth, A_ScreenHeight * 0.8) {
+            return 1
+        }
+        if IsImageMatch("Mutator_polarity_2", A_ScreenWidth * 0.9, 0, A_ScreenWidth, A_ScreenHeight * 0.8) {
             return 1
         }
         Sleep 1000
