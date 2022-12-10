@@ -19,6 +19,8 @@ if not SC_HWND
 ; 主循环
 ; TODO https://www.autohotkey.com/boards/viewtopic.php?t=57152 切出时暂停
 Loop {
+    MouseMoveToMargin()
+
     ; 等待准备游戏按钮亮起
     WaitReadyButton()
 
