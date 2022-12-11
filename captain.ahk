@@ -14,17 +14,18 @@ CallHyperions()
 }
 CallHyperion(mx, my)
 {
-    i:=6
-    mx := CP(mx)
-    my := CP(my)
-    mx-=(i/2)
-    while i > 0
-    {
-        mx++
-        Send ^z
-        Sleep 100
-        Click %mx% %my%
-        Sleep 100
-        i--
+    rows := 2
+    cols := 6
+    mx := CP(mx) - CP(cols)
+    my := CP(my) - CP(rows)
+    Loop %rows% {
+        ty := my + A_Index * 2
+        Loop %cols% {
+            tx := mx + A_Index * 2
+            Send ^z
+            Sleep 20
+            Click %tx% %ty%
+            Sleep 20
+        }
     }
 }
