@@ -1,6 +1,7 @@
 ﻿#include utils.ahk
 #NoEnv
 #SingleInstance force
+SendMode InputThenPlay
 FileInstall, img/Mutator_polarity_1.png, img/Mutator_polarity_1.png
 FileInstall, img/Mutator_polarity_2.png, img/Mutator_polarity_2.png
 
@@ -19,6 +20,8 @@ if not SC_HWND
 ; 主循环
 ; TODO https://www.autohotkey.com/boards/viewtopic.php?t=57152 切出时暂停
 Loop {
+    OutputDebug, %A_Now%: 开始一次主循环
+
     MouseMoveToMargin()
     Sleep 200
 
@@ -64,7 +67,7 @@ CheckAndActivePrestiges() {
     x := CP(450)
     y := CP(1640)
     Click %x% %y% ; 点击自定义按钮
-    Sleep 3000
+    Sleep 2000
     ; 检查激活威望按钮, 亮着就激活, 没亮就是满了换到下一个指挥官
     if IsImageMatch("jihuoweiwang", A_ScreenWidth * 0.6, A_ScreenHeight * 0.25, A_ScreenWidth * 0.76, A_ScreenHeight * 0.3) {
         ActivePrestiges()
@@ -107,8 +110,8 @@ ChangeToNextCommander() {
     }
     if IsImageMatch("manjibiankuang", CP(1480), P_CTM, P_CRM, P_CBM1, "Black") {
         ; 当前是诺瓦, 选第二排第一个
-        x := CP(780)
-        y := CP(260)
+        x := CP(260)
+        y := CP(780)
         Click %x% %y%
         return
     }
@@ -124,6 +127,7 @@ ChangeToNextCommander() {
 ; 离开回到大厅的小计页面
 WaitToLeaveReportPage() {
     Loop {
+        OutputDebug, %A_Now%: 检测离开得分画面按钮
         if IsImageMatch("likai", A_ScreenWidth * 0.04, A_ScreenHeight * 0.74, A_ScreenWidth * 0.2, A_ScreenHeight * 0.83) {
             x := CP(500)
             y := CP(1700)
@@ -147,6 +151,7 @@ WaitToLeaveReportPage() {
 
 WaitFullClearLoop() {
     Loop {
+        OutputDebug, %A_Now%: 检测准备按钮或满级弹框
         if IsImageMatch("zhunbeijiuxu", A_ScreenWidth * 0.04, A_ScreenHeight * 0.8, A_ScreenWidth * 0.2, A_ScreenHeight * 0.92) {
             return
         }
@@ -222,9 +227,11 @@ WaitEnteringGame()
 ; 等待结束按钮并点退出
 OnGameEndingSuccess()
 {
-    ;MsgBox 开始检查得分画面
+    OutputDebug, %A_Now%: 开始检查得分画面
     WaitToImageMatch("defenhuamian", A_ScreenWidth * 0.46, A_ScreenHeight * 0.58, A_ScreenWidth * 0.54, A_ScreenHeight * 0.64, "0x333333", 40)
-    ;MsgBox 结束检查得分画面
+    OutputDebug, %A_Now%: 已匹配到检查得分画面
+    Sleep 1000
+    Send s
     Sleep 1000
     Send s
 }
@@ -232,7 +239,7 @@ OnGameEndingSuccess()
 ; 检查是否有极性不定因子
 HasPolarity()
 {
-    while (A_Index < 4) {
+    Loop 4 {
         if IsImageMatch("Mutator_polarity", A_ScreenWidth * 0.9, 0, A_ScreenWidth, A_ScreenHeight * 0.8) {
             return 1
         }
