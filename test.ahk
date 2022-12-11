@@ -1,5 +1,4 @@
-﻿#NoEnv  ; Recommended for performance and compatibility with future AutoHotkey releases.
-#include common.ahk
+﻿#include common.ahk
 ; #Warn All, StdOut  ; Enable warnings to assist with detecting common errors.
 ;SendMode Input  ; Recommended for new scripts due to its superior speed and reliability.
 ;SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
@@ -7,7 +6,6 @@ CoordMode, Pixel, Screen
 
 ^r::
 global P_RATE := 1
-OutputDebug, %A_Now%: Because the window "%TargetWindowTitle%" did not exist, the process was aborted.
 if IsImageMatch("manjibiankuang", P_CLM, P_CTM, CP(1500), P_CBM1, "Black") {
     x := LAST_IMAGE_X + CP(210)
     y := LAST_IMAGE_Y + CP(100)
@@ -37,7 +35,8 @@ while (A_Index < 4) {
 return
 
 ^g::
-CheckAndActivePrestiges()
+i := 3 + 2 * 2
+MsgBox % i
 return
 
 OnEnteringGame(){
