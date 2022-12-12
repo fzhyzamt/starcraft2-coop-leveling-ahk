@@ -5,6 +5,15 @@ SendMode InputThenPlay
 FileInstall, img/Mutator_polarity_1.png, img/Mutator_polarity_1.png
 FileInstall, img/Mutator_polarity_2.png, img/Mutator_polarity_2.png
 
+global CAPTAIN_ALWAYS_EXIT := 0
+if (IS_CAPTAIN = 1) {
+    MsgBox, 0x104, 模式确认, 主机立即退出?
+    IfMsgBox Yes
+        CAPTAIN_ALWAYS_EXIT := 1
+    else
+        CAPTAIN_ALWAYS_EXIT := 0
+}
+
 ^+r::
 MainLoop()
 return
@@ -40,12 +49,17 @@ Loop {
     ; 使用面板
     OnEnteringGame()
 
-    ; 判断极性
-    if HasPolarity() {
+    if (CAPTAIN_ALWAYS_EXIT = 1) {
         F10Q()
     } else {
-        OnGameEndingSuccess()
+        ; 判断极性
+        if HasPolarity() {
+            F10Q()
+        } else {
+            OnGameEndingSuccess()
+        }
     }
+
 
     ; 等待离开得分界面
     WaitToLeaveReportPage()

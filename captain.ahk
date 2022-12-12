@@ -1,4 +1,5 @@
-﻿#include common.ahk
+﻿global IS_CAPTAIN := 1
+#include common.ahk
 
 OnEnteringGame()
 {
